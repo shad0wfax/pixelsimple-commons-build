@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ====================================================================== -->
+<!-- Ant build file (http://ant.apache.org/) for Ant 1.6.2 or above.        -->
+<!-- ====================================================================== -->
+
+<project name="build-all" default="build-all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <target name="build-all" description="Build all modules needed. Order matters, so note the order.">
+
+		<echo message="Building commons-command module."/>
+		<ant dir="../commons-command"/>
+    	
+		<echo message="Building transcoder module."/>
+		<ant dir="../transcoder"/>
+    	
+    </target>
+	
+</project>
