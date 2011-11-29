@@ -217,10 +217,9 @@
          ================================= -->
 	<target name="resolve-with-ivy" depends="clean-org-cache" description="--> retreive dependencies with ivy">
 		<!-- Commented for now, Eventually when using shared repo / CI server we might need this call:
-		
 			<ivy:cleancache />
 		 -->
-	    <ivy:retrieve sync="true" />
+	    <ivy:retrieve pattern="${ivy.lib.dir}/[conf]/[artifact].[ext]" sync="true" />
 	</target>    
     
 	<target name="clean-org-cache" description="--> Cleans the .cache folder of all pixelsimple releases.">
