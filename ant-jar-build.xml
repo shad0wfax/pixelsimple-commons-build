@@ -199,11 +199,12 @@
 	        <attribute name="Built-By" value="${user.name}"/>
 	        <attribute name="Build-Time" value="${buildTime}"/>
 	        <attribute name="Specification-Title"    value="${project.moduleName}"/>
-	        <attribute name="Specification-Version"  value="${project.build.version}}"/>
+	        <attribute name="Specification-Version"  value="${project.build.version}"/>
 	        <attribute name="Specification-Vendor"   value="${project.orgName}"/>
 	        <attribute name="Implementation-Title"   value="${project.moduleName}"/>
-	        <attribute name="Implementation-Version" value="${version}"/>
-	        <attribute name="Implementation-Vendor"  value="${project.orgName}"/>          
+	        <attribute name="Implementation-Version" value="${project.build.version}"/>
+	        <attribute name="Implementation-Vendor"  value="${project.orgName}"/>
+	 		<attribute name="Main-Class" value="${project.jar.mainclass}"/>
 	    </manifest>    	
     </jar>	
   </target>	
