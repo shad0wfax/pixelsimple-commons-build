@@ -23,8 +23,15 @@
     <!-- paths used for compilation and run  -->
 	<path id="lib.path.id">
 	    <fileset dir="${ivy.lib.dir}"/>
-	</path>
-
+  </path>
+	
+  <path id="test.classpath">
+    <!-- paths used for test  -->
+    <path refid="lib.path.id"/>
+    <pathelement location="${project.build.outputDir}"/>
+    <pathelement location="${project.build.testOutputDir}"/>
+  </path>
+	
   <!-- ====================================================================== -->
   <!-- Cleaning up target                                                     -->
   <!-- ====================================================================== -->
@@ -49,7 +56,7 @@
            fork="false" 
            source="1.6">
       <src>
-        <pathelement location="${project.build.srcDir.0}"/>
+        <pathelement location="${project.build.srcDir}"/>
       </src>
       <classpath>
       	<path refid="build.classpath"/>
@@ -57,7 +64,7 @@
       </classpath>	
     </javac>
   	<copy todir="${project.build.outputDir}">
-  	    <fileset dir="${project.build.resourceDir.0}" excludes="*/*.java"/>
+  	    <fileset dir="${project.build.resourceDir}" excludes="*/*.java"/>
   	</copy>
   </target>
 
@@ -80,7 +87,7 @@
            fork="false" 
            source="1.6">
       <src>
-        <pathelement location="${project.build.testDir.0}"/>
+        <pathelement location="${project.build.testDir}"/>
       </src>
       <classpath>
         <path refid="lib.path.id"/>
@@ -88,7 +95,7 @@
       </classpath>
     </javac>
   	<copy todir="${project.build.testOutputDir}">
-  	    <fileset dir="${project.build.testResourceDir.0}" excludes="*/*.java"/>
+  	    <fileset dir="${project.build.testResourceDir}" excludes="*/*.java"/>
   	</copy>
   </target>
 
@@ -97,21 +104,25 @@
   <!-- ====================================================================== -->
 
   <target name="test" 
-          depends="compile-tests" 
+          depends="compile-tests,coverage-instrument" 
           unless="junit.skipped" 
           description="Run the test cases">
     <mkdir dir="${project.test.reports}"/>
     <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
       <sysproperty key="basedir" value="."/>
+    	
+	  <sysproperty key="net.sourceforge.cobertura.datafile" file="${project.coverage.cobertura.ser.file}" />    	
+    	
       <formatter type="xml"/>
       <formatter type="plain" usefile="false"/>
+    	
+	  <classpath location="${project.coverage.instrumented.dir}"/>
       <classpath>
-        <path refid="lib.path.id"/>
-        <pathelement location="${project.build.outputDir}"/>
-        <pathelement location="${project.build.testOutputDir}"/>
+        <path refid="test.classpath"/>
       </classpath>
+    	
       <batchtest todir="${project.test.reports}" unless="test">
-        <fileset dir="${project.build.testDir.0}">
+        <fileset dir="${project.build.testDir}">
           <include name="**/Test*.java"/>
           <include name="**/*Test.java"/>
           <include name="**/*TestCase.java"/>
@@ -119,7 +130,7 @@
         </fileset>
       </batchtest>
       <batchtest todir="${project.test.reports}" if="test">
-        <fileset dir="${project.build.testDir.0}">
+        <fileset dir="${project.build.testDir}">
           <include name="**/${test}.java"/>
           <exclude name="**/*Abstract*Test.java"/>
         </fileset>
@@ -152,7 +163,7 @@
   <!-- ====================================================================== -->
 
   <target name="javadoc" description="Generates the Javadoc of the application">
-    <javadoc sourcepath="${project.build.srcDir.0}" 
+    <javadoc sourcepath="${project.build.srcDir}" 
              packagenames="*" 
              destdir="${project.reporting.outputDirectory}/apidocs" 
              access="protected" 
@@ -209,6 +220,28 @@
     </jar>	
   </target>	
 	
+	<target name="coverage-instrument" description="Instrument for code coverage">
+		<property name="testProp" refid="test.classpath" />
+		<echo message="coverage-instrument == ${testProp}"/>
+		
+		<delete file="${project.coverage.cobertura.ser.file}" />
+
+		<taskdef classpathref="test.classpath" resource="tasks.properties"/>
+		
+		<cobertura-instrument todir="${project.coverage.instrumented.dir}">
+			<includeClasses regex=".*" />
+			<excludeClasses regex=".*\.Test.*" />
+
+			<instrumentationClasspath>
+				<path refid="test.classpath" />
+			</instrumentationClasspath>
+		</cobertura-instrument>
+	</target>
+	
+    <target name="coverage-report" description="--> Cobertura code coverage">
+    	<cobertura-report format="html" destdir="${project.coverage.reports}" srcdir="${project.build.srcDir}" />
+    </target>
+	
 <!-- ivy integration -->    
 
     	
@@ -230,8 +263,8 @@
     <!-- ================================= 
           target: report              
          ================================= -->
-    <target name="report-with-ivy" description="--> generates a report of dependencies">
-        <ivy:report todir="${project.test.reports}"/>
+    <target name="report-with-ivy" depends="coverage-report" description="--> generates a report of dependencies">
+        <ivy:report todir="${project.ivy.reports}"/>
     </target>
 
 
