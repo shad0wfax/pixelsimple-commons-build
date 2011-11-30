@@ -228,18 +228,16 @@
 
 		<taskdef classpathref="test.classpath" resource="tasks.properties"/>
 		
-		<cobertura-instrument todir="${project.coverage.instrumented.dir}">
-			<includeClasses regex=".*" />
-			<excludeClasses regex=".*\.Test.*" />
-
-			<instrumentationClasspath>
-				<path refid="test.classpath" />
-			</instrumentationClasspath>
+		<cobertura-instrument todir="${project.coverage.instrumented.dir}" datafile="${project.coverage.cobertura.ser.file}">
+			<fileset dir="${project.build.outputDir}">
+		        <include name="**/*.class" />
+		        <exclude name="**/*Test.*" />
+			</fileset>
 		</cobertura-instrument>
 	</target>
 	
     <target name="coverage-report" description="--> Cobertura code coverage">
-    	<cobertura-report format="html" destdir="${project.coverage.reports}" srcdir="${project.build.srcDir}" />
+    	<cobertura-report datafile="${project.coverage.cobertura.ser.file}" format="html" destdir="${project.coverage.reports}" srcdir="${project.build.srcDir}" />
     </target>
 	
 <!-- ivy integration -->    
