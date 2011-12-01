@@ -104,7 +104,7 @@
   <!-- ====================================================================== -->
 
   <target name="test" 
-          depends="compile-tests,coverage-instrument" 
+          depends="compile-tests, coverage-instrument" 
           unless="junit.skipped" 
           description="Run the test cases">
     <mkdir dir="${project.test.reports}"/>
@@ -113,14 +113,14 @@
     	
 	  <sysproperty key="net.sourceforge.cobertura.datafile" file="${project.coverage.cobertura.ser.file}" />    	
     	
-      <formatter type="xml"/>
-      <formatter type="plain" usefile="false"/>
-    	
 	  <classpath location="${project.coverage.instrumented.dir}"/>
-      <classpath>
-        <path refid="test.classpath"/>
-      </classpath>
+  	  <classpath location="${project.build.outputDir}"/>
+      <classpath location="${project.build.testOutputDir}"/>
+      <classpath refid="lib.path.id" />
     	
+		<formatter type="xml"/>
+		<formatter type="plain" usefile="false"/>
+      	
       <batchtest todir="${project.test.reports}" unless="test">
         <fileset dir="${project.build.testDir}">
           <include name="**/Test*.java"/>
@@ -219,7 +219,7 @@
 	    </manifest>    	
     </jar>	
   </target>	
-	
+
 	<target name="coverage-instrument" description="Instrument for code coverage">
 		<property name="testProp" refid="test.classpath" />
 		<echo message="coverage-instrument == ${testProp}"/>
@@ -231,7 +231,6 @@
 		<cobertura-instrument todir="${project.coverage.instrumented.dir}" datafile="${project.coverage.cobertura.ser.file}">
 			<fileset dir="${project.build.outputDir}">
 		        <include name="**/*.class" />
-		        <exclude name="**/*Test.*" />
 			</fileset>
 		</cobertura-instrument>
 	</target>
