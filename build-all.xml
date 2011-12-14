@@ -11,6 +11,9 @@
 		<echo message="Building commons-command module."/>
 		<ant dir="../commons-command"/>
     	
+		<echo message="Building commons-media module."/>
+		<ant dir="../commons-media"/>
+    	
 		<echo message="Building transcoder module."/>
 		<ant dir="../transcoder"/>
     	
