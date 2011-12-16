@@ -8,6 +8,9 @@
 
     <target name="build-all" description="Build all modules needed. Order matters, so note the order.">
 
+		<echo message="Building commons-util module."/>
+		<ant dir="../commons-util"/>
+    	
 		<echo message="Building commons-command module."/>
 		<ant dir="../commons-command"/>
     	
