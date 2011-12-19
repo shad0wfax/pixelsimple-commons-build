@@ -6,12 +6,14 @@
 
 <project name="abstract-ant-jar-build" default="publish-with-ivy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
+  <echo message="project.commonsBuildDir: ${project.commonsBuildDir}"/>
+	
   <!-- ====================================================================== -->
   <!-- Build environment properties                                           -->
   <!-- ====================================================================== -->
 
-  <property file="../commons-build/common-ant-build.properties"/>
-  <property file="../commons-build/common-ant-jar-build.properties"/>
+  <property file="${project.commonsBuildDir}/common-ant-build.properties"/>
+  <property file="${project.commonsBuildDir}/common-ant-jar-build.properties"/>
   <!-- Project specific property -->	
   <property file="ant-build.properties"/>
 

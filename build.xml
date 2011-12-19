@@ -9,6 +9,15 @@
   <!-- Done just to speed up the developer builds. Remove this before final commit -->
   <!-- ====================================================================== -->
   <property name="project.skipAllReports" value="true" />
+	
+  <!-- ====================================================================== -->
+  <!-- The properties below are paths to each module this build cares about. --> 
+  <!-- changed at the CI level as needed. 									 -->
+  <!-- ====================================================================== -->
+  <property name="project.commonsUtilDir" value="../commons-util" />
+  <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
+  <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
+  <property name="project.transcoderDir" value="../transcoder" />
 
   <!-- ====================================================================== -->
   <!-- Import maven-build.xml into the current project                        -->
