@@ -5,6 +5,10 @@
 <!-- ====================================================================== -->
 
 <project name="build-all-modules" default="build-all" basedir=".">
+  <!-- ====================================================================== -->
+  <!-- Done just to speed up the developer builds. Remove this before final commit -->
+  <!-- ====================================================================== -->
+  <property name="project.skipAllReports" value="true" />
 
   <!-- ====================================================================== -->
   <!-- Import maven-build.xml into the current project                        -->

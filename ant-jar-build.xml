@@ -162,7 +162,7 @@
   <!-- Javadoc target                                                         -->
   <!-- ====================================================================== -->
 
-  <target name="javadoc" description="Generates the Javadoc of the application">
+  <target name="javadoc" unless="project.skipAllReports" description="Generates the Javadoc of the application">
     <javadoc sourcepath="${project.build.srcDir}" 
              packagenames="*"
     		 classpathref="test.classpath" 
@@ -190,7 +190,7 @@
   <!-- Package target                                                         -->
   <!-- ====================================================================== -->
 
-  <target name="package" depends="clean,compile,test,javadoc,report-with-ivy" description="Package the application">
+  <target name="package" depends="clean,compile,test,javadoc,coverage-report,report-with-ivy" description="Package the application">
 		<antcall target="jar"/>
   </target>
 
@@ -221,7 +221,7 @@
     </jar>	
   </target>	
 
-	<target name="coverage-instrument" description="Instrument for code coverage">
+	<target name="coverage-instrument" unless="project.skipAllReports" description="Instrument for code coverage">
 		<property name="testProp" refid="test.classpath" />
 		<echo message="coverage-instrument == ${testProp}"/>
 		
@@ -236,7 +236,7 @@
 		</cobertura-instrument>
 	</target>
 	
-    <target name="coverage-report" description="--> Cobertura code coverage">
+    <target name="coverage-report" unless="project.skipAllReports" description="--> Cobertura code coverage">
     	<cobertura-report datafile="${project.coverage.cobertura.ser.file}" format="html" destdir="${project.coverage.reports}" srcdir="${project.build.srcDir}" />
     </target>
 	
@@ -261,7 +261,7 @@
     <!-- ================================= 
           target: report              
          ================================= -->
-    <target name="report-with-ivy" depends="coverage-report" description="--> generates a report of dependencies">
+    <target name="report-with-ivy" unless="project.skipAllReports" description="--> generates a report of dependencies">
         <ivy:report todir="${project.ivy.reports}"/>
     </target>
 

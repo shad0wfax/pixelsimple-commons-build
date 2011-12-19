@@ -8,14 +8,16 @@
 
     <target name="build-all" description="Build all modules needed. Order matters, so note the order.">
 
+    	 <echo message="The project.createAllReports: ${project.createAllReports}"/>
+    	
 		<echo message="Building commons-util module."/>
 		<ant dir="../commons-util"/>
     	
-		<echo message="Building commons-command module."/>
-		<ant dir="../commons-command"/>
+		<echo message="Building commons-command-runner module."/>
+		<ant dir="../commons-command-runner"/>
     	
-		<echo message="Building commons-media module."/>
-		<ant dir="../commons-media"/>
+		<echo message="Building commons-media-info module."/>
+		<ant dir="../commons-media-info"/>
     	
 		<echo message="Building transcoder module."/>
 		<ant dir="../transcoder"/>
