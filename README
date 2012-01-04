@@ -5,4 +5,4 @@ Since we are using Ant + Ivy, our builds will be command line oriented. This pro
 
 This repo needs to be cloned first before individual repos can be built. The other repos's/module's depend on the build files from this repo.
 
-The intent of this project is to abstract the build process and harmonize the build process across different repos/modules/projects.
+The intent of this project is to abstract the build process and harmonize the build process across different repos/modules/projects. Other repos refer to this.
