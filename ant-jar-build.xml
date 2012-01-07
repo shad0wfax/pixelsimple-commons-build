@@ -7,6 +7,11 @@
 <project name="abstract-ant-jar-build" default="publish-with-ivy" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <echo message="project.commonsBuildDir: ${project.commonsBuildDir}"/>
+
+  <!-- ====================================================================== -->
+  <!-- Ivy settings file path                                          -->
+  <!-- ====================================================================== -->
+  <ivy:settings file="${project.commonsBuildDir}/ivysettings.xml"/>	
 	
   <!-- ====================================================================== -->
   <!-- Build environment properties                                           -->
@@ -272,7 +277,7 @@
       target: publish (Same as install in maven). Put it to ivy repos.              
      ================================= -->
     <target name="publish-with-ivy" depends="package" description="-->started goal, packages, reports, delivers and publishes">
-    	<ivy:publish resolver="local" pubrevision="${project.build.version}" overwrite="true" />
+    	<ivy:publish resolver="artifactory-publish" pubrevision="${project.build.version}" overwrite="true" />
     </target>
 
 <!-- ivy integration -->    
