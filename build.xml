@@ -6,13 +6,13 @@
 
 <project name="build-all-modules" default="build-all" basedir=".">
   <!-- ====================================================================== -->
-  <!-- Done just to speed up the developer builds. Remove this before final commit -->
+  <!-- Done just to speed up the local developer builds.					  -->
   <!-- ====================================================================== -->
   <property name="project.skipAllReports" value="true" />
 	
   <!-- ====================================================================== -->
-  <!-- The properties below are paths to each module this build cares about. --> 
-  <!-- changed at the CI level as needed. 									 -->
+  <!-- The properties below are paths to each module this build cares about.  --> 
+  <!-- changed at the CI level as needed. 									  -->
   <!-- ====================================================================== -->
   <property name="project.commonsUtilDir" value="../commons-util" />
   <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
@@ -23,7 +23,7 @@
   <!-- Import maven-build.xml into the current project                        -->
   <!-- ====================================================================== -->
 
-  <import file="./build-all.xml"/>
+  <import file="./local-build-all.xml"/>
   
   <!-- ====================================================================== -->
   <!-- Help target                                                            -->

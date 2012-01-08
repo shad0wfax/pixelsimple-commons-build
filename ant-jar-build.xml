@@ -277,9 +277,20 @@
       target: publish (Same as install in maven). Put it to ivy repos.              
      ================================= -->
     <target name="publish-with-ivy" depends="package" description="-->started goal, packages, reports, delivers and publishes">
-    	<ivy:publish resolver="artifactory-publish" pubrevision="${project.build.version}" overwrite="true" />
+    	
+    	<antcall target="artifactory-publish" />
+    	<antcall target="local-publish" />
+    	
     </target>
 
+    <target name="artifactory-publish" if="project.publishToArtifactory" description="--Publishing to artifactory if it is not local build.">
+    	<ivy:publish resolver="artifactory-publish" pubrevision="${project.build.version}" overwrite="true" />
+	</target>
+	
+    <target name="local-publish" unless="project.publishToArtifactory" description="--Publishing to local repo of the developer running this. This will be ${user.home}/.ivy/local">
+    	<ivy:publish resolver="local" pubrevision="${project.build.version}" overwrite="true" />
+	</target>
+	
 <!-- ivy integration -->    
 
 	
