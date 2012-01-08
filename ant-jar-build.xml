@@ -283,7 +283,7 @@
     	
     </target>
 
-    <target name="artifactory-publish" if="project.publishToArtifactory" description="--Publishing to artifactory if it is not local build.">
+    <target name="artifactory-publish" if="project.publishToArtifactory" description="--Publishing to artifactory if it ${project.publishToArtifactory} is set. ">
     	<ivy:publish resolver="artifactory-publish" pubrevision="${project.build.version}" overwrite="true" />
 	</target>
 	
