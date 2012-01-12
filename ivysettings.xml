@@ -5,8 +5,10 @@
   <credentials host="localhost" realm="Artifactory Realm" username="admin" passwd="password" />
   <resolvers>
     <chain name="main">
-	    <ibiblio name="public" m2compatible="true" root="http://localhost:8081/artifactory/libs-snapshot-local" />
+	    <ibiblio name="libs-snapshot-local" m2compatible="true" root="http://localhost:8081/artifactory/libs-snapshot-local" />
 	    
+	    <ibiblio name="ext-release-local" m2compatible="true" root="http://localhost:8081/artifactory/ext-release-local" />
+
 	    <url name="artifactory-publish" m2compatible="true">
 	       <!-- You can use  m2compatible="true" instead of specifying your own pattern -->
 	        <artifact pattern=

@@ -29,7 +29,7 @@
   <path id="build.classpath"/>
     <!-- paths used for compilation and run  -->
 	<path id="lib.path.id">
-	    <fileset dir="${ivy.lib.dir}"/>
+	    <fileset dir="${ivy.lib.dir}" includes="**/*.jar" />
   </path>
 	
   <path id="test.classpath">
