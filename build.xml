@@ -15,6 +15,7 @@
   <!-- changed at the CI level as needed. 									  -->
   <!-- ====================================================================== -->
   <property name="project.commonsUtilDir" value="../commons-util" />
+  <property name="project.appCoreDir" value="../app-core" />
   <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
   <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
   <property name="project.transcoderDir" value="../transcoder" />

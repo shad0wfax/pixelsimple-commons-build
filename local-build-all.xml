@@ -13,6 +13,9 @@
     	<echo message="Building commons-util module."/>
 		<ant dir="${project.commonsUtilDir}"/>
     	
+    	<echo message="Building app-core module."/>
+		<ant dir="${project.appCoreDir}"/>
+    	
 		<echo message="Building commons-command-runner module."/>
 		<ant dir="${project.commonsCommandRunnerDir}"/>
     	
