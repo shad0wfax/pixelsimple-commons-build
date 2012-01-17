@@ -47,6 +47,13 @@
     <delete dir="${project.build.dir}"/>
   </target>
 
+  <target name="init" description="Init the ant build process">
+  	
+  	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+  	
+  </target>
+
+	
   <!-- ====================================================================== -->
   <!-- Compilation target                                                     -->
   <!-- ====================================================================== -->
@@ -71,7 +78,7 @@
       </classpath>	
     </javac>
   	<copy todir="${project.build.outputDir}">
-  	    <fileset dir="${project.build.resourceDir}" excludes="*/*.java"/>
+  	    <fileset dir="${project.build.resourceDir}" excludes="*/*.java" erroronmissingdir="false" />
   	</copy>
   </target>
 
@@ -83,27 +90,33 @@
           depends="compile" 
           description="Compile the test code" 
           unless="project.test.skip">
-    <mkdir dir="${project.build.testOutputDir}"/>
-    <javac destdir="${project.build.testOutputDir}" 
-           nowarn="false" 
-           debug="true" 
-           optimize="false" 
-           deprecation="true" 
-           target="1.6" 
-           verbose="false" 
-           fork="false" 
-           source="1.6">
-      <src>
-        <pathelement location="${project.build.testDir}"/>
-      </src>
-      <classpath>
-        <path refid="lib.path.id"/>
-        <pathelement location="${project.build.outputDir}"/>
-      </classpath>
-    </javac>
-  	<copy todir="${project.build.testOutputDir}">
-  	    <fileset dir="${project.build.testResourceDir}" excludes="*/*.java"/>
-  	</copy>
+          
+    <if>
+	  <available file="${project.build.testDir}" type="dir" />
+	  	<then>      
+			<mkdir dir="${project.build.testOutputDir}"/>
+			<javac destdir="${project.build.testOutputDir}" 
+				   nowarn="false" 
+				   debug="true" 
+				   optimize="false" 
+				   deprecation="true" 
+				   target="1.6" 
+				   verbose="false" 
+				   fork="false" 
+				   source="1.6">
+			  <src>
+				<pathelement location="${project.build.testDir}"/>
+			  </src>
+			  <classpath>
+				<path refid="lib.path.id"/>
+				<pathelement location="${project.build.outputDir}"/>
+			  </classpath>
+			</javac>
+			<copy todir="${project.build.testOutputDir}">
+				<fileset dir="${project.build.testResourceDir}" excludes="*/*.java" erroronmissingdir="false" />
+			</copy>
+		</then>
+	</if>	
   </target>
 
   <!-- ====================================================================== -->
@@ -129,7 +142,7 @@
 		<formatter type="plain" usefile="false"/>
       	
       <batchtest todir="${project.test.reports}" unless="test">
-        <fileset dir="${project.build.testDir}">
+        <fileset dir="${project.build.testDir}" erroronmissingdir="false" >
           <include name="**/Test*.java"/>
           <include name="**/*Test.java"/>
           <include name="**/*TestCase.java"/>
@@ -137,7 +150,7 @@
         </fileset>
       </batchtest>
       <batchtest todir="${project.test.reports}" if="test">
-        <fileset dir="${project.build.testDir}">
+        <fileset dir="${project.build.testDir}" erroronmissingdir="false">
           <include name="**/${test}.java"/>
           <exclude name="**/*Abstract*Test.java"/>
         </fileset>
@@ -197,7 +210,7 @@
   <!-- Package target                                                         -->
   <!-- ====================================================================== -->
 
-  <target name="package" depends="clean,compile,test,javadoc,coverage-report,report-with-ivy" description="Package the application">
+  <target name="package" depends="clean,init,compile,test,javadoc,coverage-report,report-with-ivy" description="Package the application">
 		<antcall target="jar"/>
   </target>
 
