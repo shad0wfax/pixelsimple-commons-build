@@ -6,7 +6,7 @@
 
 <project name="build-all" default="build-all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-    <target name="build-all" description="Build all modules needed. Order matters, so note the order.">
+    <target name="build-all" depends="init" description="Build all modules needed. Order matters, so note the order.">
 
 		<echo message="The project.createAllReports: ${project.createAllReports}"/>
     	
@@ -25,6 +25,27 @@
 		<echo message="Building transcoder module."/>
 		<ant dir="${project.transcoderDir}"/>
     	
+		<echo message="Building framezap-bootstrap module."/>
+		<ant dir="${project.framezapBootstrapDir}"/>
+    	
+		<echo message="Building framezap-web module."/>
+		<ant dir="${project.framezapWebDir}"/>
+    	
+    	
+    	
+		<!-- should be the last! -->    	
+		<if>
+		  <equals arg1="${packageApp}" arg2="true" />
+		  <then>
+			<echo message="Packaging the app."/>
+			<ant dir="${project.packageAppDir}"/>
+		  </then>
+		</if>   
+
+    	
     </target>
-	
+	  <target name="init" description="Init the ant build process">
+	  	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	</target>
+
 </project>

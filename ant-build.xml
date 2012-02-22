@@ -18,7 +18,6 @@
   <!-- ====================================================================== -->
 
   <property file="${project.commonsBuildDir}/common-ant-build.properties"/>
-  <property file="${project.commonsBuildDir}/common-ant-jar-build.properties"/>
   <!-- Project specific property -->	
   <property file="ant-build.properties"/>
 
@@ -211,13 +210,23 @@
   <!-- ====================================================================== -->
 
   <target name="package" depends="clean,init,compile,test,javadoc,coverage-report,report-with-ivy" description="Package the application">
-		<antcall target="jar"/>
+		<if>
+		  <equals arg1="${buildType}" arg2="war" />
+		  <then>
+		  	<echo message="Building a war file" />
+		  	<antcall target="war"/>
+		  </then>
+		  <else>
+		  	<echo message="Building a jar file" />
+		  	<antcall target="jar"/>
+		  </else>
+		</if>   
+  	
   </target>
 
   <!-- ====================================================================== -->
   <!-- Jar it up  -->
   <!-- ====================================================================== -->
-
   <target name="jar" description="Builds the jar for the application">
     <tstamp>
         <format property="buildTime" pattern="MM/dd/yyyy hh:mm aa" timezone="America/New_York"/>
@@ -239,7 +248,35 @@
 	 		<attribute name="Main-Class" value="${project.jar.mainclass}"/>
 	    </manifest>    	
     </jar>	
+  </target>
+	
+  <!-- ====================================================================== -->
+  <!-- War it up  -->
+  <!-- ====================================================================== -->
+  <target name="war" description="Builds the war for the application">
+    <tstamp>
+        <format property="buildTime" pattern="MM/dd/yyyy hh:mm aa" timezone="America/New_York"/>
+    </tstamp>        
+    <war destfile="${project.build.jarDir}/${project.build.finalName}.war" 
+         compress="true" 
+         webxml="${project.build.webAppDir}/WEB-INF/web.xml">
+      <lib dir="${ivy.runtime.lib.dir}"/>
+      <classes dir="${project.build.outputDir}"/>
+      <fileset dir="${project.build.webAppDir}" excludes="WEB-INF/web.xml"/>
+	 <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Build-Time" value="${buildTime}"/>
+        <attribute name="Specification-Title"    value="${project.moduleName}"/>
+        <attribute name="Specification-Version"  value="${project.build.version}"/>
+        <attribute name="Specification-Vendor"   value="${project.orgName}"/>
+        <attribute name="Implementation-Title"   value="${project.moduleName}"/>
+        <attribute name="Implementation-Version" value="${project.build.version}"/>
+        <attribute name="Implementation-Vendor"  value="${project.orgName}"/>
+    </manifest>    	
+    </war>
+  	
   </target>	
+	
 
 	<target name="coverage-instrument" unless="project.skipAllReports" description="Instrument for code coverage">
 		<property name="testProp" refid="test.classpath" />

@@ -19,7 +19,14 @@
   <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
   <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
   <property name="project.transcoderDir" value="../transcoder" />
-
+  <property name="project.framezapBootstrapDir" value="../framezap-bootstrap" />
+	
+  <!-- War file builds.  --> 
+  <property name="project.framezapWebDir" value="../framezap-web" />
+	
+  <!-- Package the build. Will be run only if -DpackageApp=true argument is passed. --> 
+  <property name="project.packageAppDir" value="../package-app" />
+		
   <!-- ====================================================================== -->
   <!-- Import maven-build.xml into the current project                        -->
   <!-- ====================================================================== -->
