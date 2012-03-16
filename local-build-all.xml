@@ -9,12 +9,17 @@
     <target name="build-all" depends="init" description="Build all modules needed. Order matters, so note the order.">
 
 		<echo message="The project.createAllReports: ${project.createAllReports}"/>
+
+    	<!-- The order of the build matters!  -->
     	
     	<echo message="Building commons-util module."/>
 		<ant dir="${project.commonsUtilDir}"/>
     	
     	<echo message="Building app-core module."/>
 		<ant dir="${project.appCoreDir}"/>
+    	
+    	<echo message="Building commons-test module."/>
+		<ant dir="${project.commonsTestDir}"/>
     	
 		<echo message="Building commons-command-runner module."/>
 		<ant dir="${project.commonsCommandRunnerDir}"/>

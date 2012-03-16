@@ -16,6 +16,7 @@
   <!-- ====================================================================== -->
   <property name="project.commonsUtilDir" value="../commons-util" />
   <property name="project.appCoreDir" value="../app-core" />
+  <property name="project.commonsTestDir" value="../commons-test" />
   <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
   <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
   <property name="project.transcoderDir" value="../transcoder" />
