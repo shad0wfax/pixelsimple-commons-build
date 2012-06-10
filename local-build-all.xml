@@ -30,8 +30,8 @@
 		<echo message="Building transcoder module."/>
 		<ant dir="${project.transcoderDir}"/>
     	
-		<echo message="Building framezap-bootstrap module."/>
-		<ant dir="${project.framezapBootstrapDir}"/>
+		<echo message="Building app-bootstrap module."/>
+		<ant dir="${project.appBootstrapDir}"/>
     	
 		<echo message="Building framezap-web module."/>
 		<ant dir="${project.framezapWebDir}"/>

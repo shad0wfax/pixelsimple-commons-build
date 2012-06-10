@@ -20,7 +20,7 @@
   <property name="project.commonsCommandRunnerDir" value="../commons-command-runner" />
   <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
   <property name="project.transcoderDir" value="../transcoder" />
-  <property name="project.framezapBootstrapDir" value="../framezap-bootstrap" />
+  <property name="project.appBootstrapDir" value="../app-bootstrap" />
 	
   <!-- War file builds.  --> 
   <property name="project.framezapWebDir" value="../framezap-web" />
