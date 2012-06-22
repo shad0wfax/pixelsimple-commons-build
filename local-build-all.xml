@@ -33,12 +33,14 @@
 		<echo message="Building app-bootstrap module."/>
 		<ant dir="${project.appBootstrapDir}"/>
     	
+		<echo message="Building commons-media-scanner module."/>
+		<ant dir="${project.commonsMediaScannerDir}"/>
+    	
 		<echo message="Building framezap-web module."/>
 		<ant dir="${project.framezapWebDir}"/>
     	
     	
-    	
-		<!-- should be the last! -->    	
+ 		<!-- Packaging should be the last! -->    	
 		<if>
 		  <equals arg1="${packageApp}" arg2="true" />
 		  <then>

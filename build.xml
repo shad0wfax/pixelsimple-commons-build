@@ -21,6 +21,7 @@
   <property name="project.commonsMediaInfoDir" value="../commons-media-info" />
   <property name="project.transcoderDir" value="../transcoder" />
   <property name="project.appBootstrapDir" value="../app-bootstrap" />
+  <property name="project.commonsMediaScannerDir" value="../commons-media-scanner" />
 	
   <!-- War file builds.  --> 
   <property name="project.framezapWebDir" value="../framezap-web" />
